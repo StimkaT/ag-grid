@@ -21,6 +21,10 @@ export class GridComponent {
   gridApi: any;
   gridColumnApi: any;
 
+  gridOptions = {
+    domLayout: 'autoWidth',  // Подстройка под высоту, если нужно
+  };
+
   onRowClicked(event: any): void {
     const isCheckbox = event.event.target.closest('.ag-selection-checkbox');
     if (!isCheckbox) {
@@ -28,7 +32,7 @@ export class GridComponent {
     }
   }
 
-  onGridReady(params: any) {
+  onGridReady(params: any): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
@@ -36,15 +40,11 @@ export class GridComponent {
     this.autoSizeColumns();
   }
 
-  autoSizeColumns() {
+  autoSizeColumns(): void {
     const allColumnIds: string[] = [];
     this.gridColumnApi.getAllColumns().forEach((column: any) => {
       allColumnIds.push(column.getId());
     });
     this.gridColumnApi.autoSizeColumns(allColumnIds);
-  }
-
-  onRowClicked(event: any) {
-    console.log('Row clicked', event);
   }
 }
